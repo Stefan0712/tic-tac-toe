@@ -40,6 +40,11 @@
     grid-template-rows: 1fr 1fr 1fr;
     grid-template-columns: 1fr 1fr 1fr;
 }
-#gameBoard div{
+.cells{
     border: 1px solid black;
+    font-size: 100px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
