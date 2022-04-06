@@ -1,6 +1,6 @@
 .top-container{
     box-shadow: 3px 3px 3px lightgray;
-    height: 200px;
+    height: 225px;
     display: grid;
     grid-template-columns: 1fr 2fr 2fr;
     justify-content: center;
@@ -25,6 +25,8 @@
     border: 2px solid lightgrey;
     height: 100%;
     width: 50%;
+    display: grid;
+    grid-template-rows: 2fr 2fr 1fr;
 }
 .main-container{
     display: flex;
@@ -53,4 +55,34 @@
     height: 100%;
     width: 400px;
     overflow:scroll;
+}
+.startPanel{
+    border-radius: 15px;
+    height: 400px;
+    width: 400px;
+    border: 1px black solid;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: antiquewhite;
+}
+.startPanel input{
+    height: 50px;
+    width: 300px;
+    border:none;
+    border-radius: 15px;
+    background-color: rgb(255, 255, 255);
+    margin: 20px 30px;
+
+    
+}
+.startPanel button{
+    height: 50px;
+    width: 200px;
+    border-radius: 15px;
+    border: none;
+    background-color: aquamarine;
+    margin-top: 50px;
+
 }
