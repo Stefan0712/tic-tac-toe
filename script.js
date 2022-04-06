@@ -1,9 +1,15 @@
 const startBtn = document.getElementById("startBtn");
 const restartBtn = document.getElementById("restartBtn");
+restartBtn.onclick = function refreshPage(){
+    window.location.reload();
+} 
 
 
+var started = false;
 
-function createGameboard(){
+startBtn.onclick = function createGameboard(){
+    if(started==false){
+    started = true;
     const container = document.querySelector(".main-container");
     const game = document.createElement('div');
     game.setAttribute("id","gameBoard");
@@ -16,7 +22,12 @@ function createGameboard(){
             cell.innerText = "X";
         })
         game.appendChild(cell);
+    }} else{
+        const warning = document.querySelector(".log");
+        const error =document.createElement("div");
+        error.setAttribute("id","error");
+        error.innerText="The game has already started";
+        warning.appendChild(error);
+
     }
 };
-
-startBtn.onclick = createGameboard();

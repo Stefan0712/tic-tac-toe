@@ -2,7 +2,7 @@
     box-shadow: 3px 3px 3px lightgray;
     height: 200px;
     display: grid;
-    grid-template-columns: 1fr 5fr;
+    grid-template-columns: 1fr 2fr 2fr;
     justify-content: center;
     align-items: center;
     padding: 20px;
@@ -47,4 +47,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+.log{
+    border: 2px solid lightgrey;
+    height: 100%;
+    width: 400px;
+    overflow:scroll;
 }
