@@ -11,14 +11,16 @@ xBtn.onclick = function(){
     option = xBtn.value;
     p2Option="O";
 
-    xBtn.style.cssText="background-color: blue";
+    xBtn.style.cssText="background-color: #F38BA0";
+    oBtn.style.cssText="background-color: #FFBCBC";
 }
 oBtn.onclick = function(){
 
     option = oBtn.value;
     p2Option="X";
 
-    oBtn.style.cssText="background-color: blue";
+    oBtn.style.cssText="background-color: #F38BA0";
+    xBtn.style.cssText="background-color: #FFBCBC";
 } 
 
 
