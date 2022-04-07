@@ -3,7 +3,7 @@ const restartBtn = document.getElementById("restartBtn");
 const saveBtn = document.getElementById("save");
 //refresh the page to restart the game. Might chanage later to something better
 restartBtn.onclick = function refreshPage(){
-    restart();
+    restart("Restarted");
 } 
 //player factory function
 const Player = (name, option) => {
@@ -79,8 +79,9 @@ let moveCounter = 0;
 
 
 var started = false;
+let option = "X";
 startBtn.onclick = function createGameboard(){
-    let option = "X";
+    
     //the if check if there is already a gameboard created
     if(started==false){
         started = true;
@@ -99,13 +100,11 @@ startBtn.onclick = function createGameboard(){
                 //add the option to an array
                 boardArr[i]=option;
                 //change the option to X or O depending of what was before that
-                if(option == "X"){
-                    option = "O";
-                } else {
-                    option = "X";
-                };
+                
                 moveCounter++;
                 winCheck(boardArr, moveCounter);
+                ai(boardArr,option);
+                
             })
             
             
@@ -234,6 +233,7 @@ function winCheck(boardArr, moveCounter){
 }
 function restart(result){
     started = false;
+  
     const logs = document.querySelector(".log");
     const logResult = document.createElement('div');
     logResult.setAttribute("class","logs");
@@ -245,6 +245,27 @@ function restart(result){
         boardArr[i]=empt;
     }
     moveCounter = 0;
+    option = "X";
     createGameboard();
 
+}
+
+function ai(boardArr,option){
+    let aiOption ='';
+    if(option=="X"){
+        aiOption = "O";
+    } else {
+        aiOption = "X";
+    }
+    let pos = Math.floor(Math.random(1)*8);
+    if(boardArr[pos]==empt){
+        boardArr[pos]=aiOption;
+        document.getElementById(`gameCell${pos}`).innerHTML = aiOption;
+    }else {
+        ai(boardArr,option);
+    }
+    winCheck(boardArr, moveCounter);
+    console.log("pos "+pos);
+    console.log("option "+option);
+    console.log("aiOption "+aiOption);
 }
