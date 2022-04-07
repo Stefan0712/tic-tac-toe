@@ -64,7 +64,7 @@
 }
 .startPanel{
     border-radius: 15px;
-    height: 400px;
+    height: 500px;
     width: 400px;
     border: 1px black solid;
     display: flex;
@@ -89,7 +89,7 @@
     border-radius: 15px;
     border: none;
     background-color: aquamarine;
-    margin-top: 50px;
+    margin-top: 100px;
 
 }
 .winnerWindow{
@@ -112,4 +112,18 @@
 .logs{
     height: 20px;
     background-color: azure;
+}
+.options{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+}
+.options button{
+    height: 50px;
+    width: 50px;
+    margin-top: 50px;
+    margin: 30px;
 }

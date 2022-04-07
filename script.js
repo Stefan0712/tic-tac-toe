@@ -1,6 +1,27 @@
 const startBtn = document.getElementById("startBtn");
 const restartBtn = document.getElementById("restartBtn");
 const saveBtn = document.getElementById("save");
+const xBtn = document.getElementById("xBtn");
+const oBtn = document.getElementById("oBtn");
+let option = "";
+let p2Option;
+
+
+xBtn.onclick = function(){
+    option = xBtn.value;
+    p2Option="O";
+
+    xBtn.style.cssText="background-color: blue";
+}
+oBtn.onclick = function(){
+
+    option = oBtn.value;
+    p2Option="X";
+
+    oBtn.style.cssText="background-color: blue";
+} 
+
+
 //refresh the page to restart the game. Might chanage later to something better
 restartBtn.onclick = function refreshPage(){
     restart("Restarted");
@@ -10,8 +31,9 @@ const Player = (name, option) => {
     let wins = 0;
     return {name, option, wins}
 }
-const player1 = Player("PLayer 1", "X");
-const player2 = Player("Player 2", "O");
+const player1 = Player("PLayer 1", option);
+const player2 = Player("Player 2", p2Option);
+
 
 
 
@@ -31,8 +53,8 @@ p2.onblur = function(){
 saveBtn.onclick = function(){
     document.getElementById("player1Name").innerHTML = p1.value;
     document.getElementById("player2Name").innerHTML = p2.value;
-    document.getElementById("player1option").innerHTML = "X"
-    document.getElementById("player2option").innerHTML = "O"
+    document.getElementById("player1option").innerHTML = option;
+    document.getElementById("player2option").innerHTML = p2Option;
 
 
 
@@ -79,9 +101,8 @@ let moveCounter = 0;
 
 
 var started = false;
-let option = "X";
 startBtn.onclick = function createGameboard(){
-    
+    document.getElementById("winnerText").innerHTML = "";
     //the if check if there is already a gameboard created
     if(started==false){
         started = true;
@@ -130,7 +151,7 @@ function winCheck(boardArr, moveCounter){
     
     
     if(boardArr[0] == boardArr[1]&&boardArr[1] == boardArr[2]&&(boardArr[1]=="X"||boardArr[1]=="O")){
-        if(boardArr[0]=="X"){
+        if(boardArr[0]==option){
             document.getElementById("winnerText").innerText = `${player1.name} wins`;
             player1.wins++;
             result = `${player1.name} wins`;
@@ -142,7 +163,7 @@ function winCheck(boardArr, moveCounter){
             restart(result);
         }
     } else if(boardArr[3] == boardArr[4]&&boardArr[4] == boardArr[5]&&(boardArr[5]=="X"||boardArr[5]=="O")){
-        if(boardArr[3]=="X"){
+        if(boardArr[3]==option){
             document.getElementById("winnerText").innerText = `${player1.name} wins`;
             player1.wins++;
             result = `${player1.name} wins`;
@@ -154,7 +175,7 @@ function winCheck(boardArr, moveCounter){
             restart(result);
         }
     } else if(boardArr[6] == boardArr[7]&&boardArr[7] == boardArr[8]&&(boardArr[8]=="X"||boardArr[8]=="O")){
-        if(boardArr[6]=="X"){
+        if(boardArr[6]==option){
             document.getElementById("winnerText").innerText = `${player1.name} wins`;
             player1.wins++;
             result = `${player1.name} wins`;
@@ -166,7 +187,7 @@ function winCheck(boardArr, moveCounter){
             restart(result);
         }
     } else if(boardArr[0] == boardArr[3]&&boardArr[3] == boardArr[6]&&(boardArr[6]=="X"||boardArr[6]=="O")){
-        if(boardArr[0]=="X"){
+        if(boardArr[0]==option){
             document.getElementById("winnerText").innerText = `${player1.name} wins`;
             player1.wins++;
             result = `${player1.name} wins`;
@@ -178,7 +199,7 @@ function winCheck(boardArr, moveCounter){
             restart(result);
         }
     } else if(boardArr[1] == boardArr[4]&&boardArr[4] == boardArr[7]&&(boardArr[7]=="X"||boardArr[7]=="O")){
-        if(boardArr[1]=="X"){
+        if(boardArr[1]==option){
             document.getElementById("winnerText").innerText = `${player1.name} wins`;
             player1.wins++;
             result = `${player1.name} wins`;
@@ -190,7 +211,7 @@ function winCheck(boardArr, moveCounter){
             restart(result);
         }
     } else if(boardArr[2] == boardArr[5]&&boardArr[5] == boardArr[7]&&(boardArr[7]=="X"||boardArr[7]=="O")){
-        if(boardArr[2]=="X"){
+        if(boardArr[2]==option){
             document.getElementById("winnerText").innerText = `${player1.name} wins`;
             player1.wins++;
             result = `${player1.name} wins`;
@@ -202,7 +223,7 @@ function winCheck(boardArr, moveCounter){
             restart(result);
         }
     } else if(boardArr[0] == boardArr[4]&&boardArr[4] == boardArr[8]&&(boardArr[8]=="X"||boardArr[8]=="O")){
-        if(boardArr[0]=="X"){
+        if(boardArr[0]==option){
             document.getElementById("winnerText").innerText = `${player1.name} wins`;
             player1.wins++;
             result = `${player1.name} wins`;
@@ -214,7 +235,7 @@ function winCheck(boardArr, moveCounter){
             restart(result);
         }
     } else if(boardArr[2] == boardArr[4]&&boardArr[4] == boardArr[6]&&(boardArr[6]=="X"||boardArr[6]=="O")){
-        if(boardArr[2]=="X"){
+        if(boardArr[2]==option){
             document.getElementById("winnerText").innerText = `${player1.name} wins`;
             player1.wins++;
             result = `${player1.name} wins`;
@@ -232,6 +253,10 @@ function winCheck(boardArr, moveCounter){
 
 }
 function restart(result){
+    if(!document.getElementById("gameBoard")){
+        document.getElementById("winnerText").innerHTML = "Please press START first"
+        restart();
+    }
     started = false;
   
     const logs = document.querySelector(".log");
@@ -245,7 +270,6 @@ function restart(result){
         boardArr[i]=empt;
     }
     moveCounter = 0;
-    option = "X";
     createGameboard();
 
 }
