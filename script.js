@@ -1,3 +1,5 @@
+var started = true;
+
 const startBtn = document.getElementById("startBtn");
 const restartBtn = document.getElementById("restartBtn");
 const saveBtn = document.getElementById("save");
@@ -57,11 +59,13 @@ saveBtn.onclick = function(){
     document.getElementById("player2Name").innerHTML = p2.value;
     document.getElementById("player1option").innerHTML = option;
     document.getElementById("player2option").innerHTML = p2Option;
+    document.getElementById("winnerText").innerHTML = "Please press start"
 
-
+    started = false;
 
 
     document.querySelector(".startPanel").style.cssText = "display: none";
+    
 }
 
 
@@ -102,7 +106,6 @@ let moveCounter = 0;
 
 
 
-var started = false;
 startBtn.onclick = function createGameboard(){
     document.getElementById("winnerText").innerHTML = "";
     //the if check if there is already a gameboard created
@@ -138,7 +141,7 @@ startBtn.onclick = function createGameboard(){
         const warning = document.querySelector(".log");
         const error =document.createElement("div");
         error.setAttribute("id","error");
-        error.innerText="The game has already started";
+        error.innerText="The game can't start";
         warning.appendChild(error);
 
     }
@@ -256,7 +259,7 @@ function winCheck(boardArr, moveCounter){
 }
 function restart(result){
     if(!document.getElementById("gameBoard")){
-        document.getElementById("winnerText").innerHTML = "Please press START first"
+        document.getElementById("winnerText").innerHTML = "Please press START"
         restart();
     }
     started = false;
