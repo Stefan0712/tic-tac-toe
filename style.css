@@ -109,3 +109,7 @@
 .player2Display{
    
 }
+.logs{
+    height: 20px;
+    background-color: azure;
+}

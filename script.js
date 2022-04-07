@@ -3,7 +3,7 @@ const restartBtn = document.getElementById("restartBtn");
 const saveBtn = document.getElementById("save");
 //refresh the page to restart the game. Might chanage later to something better
 restartBtn.onclick = function refreshPage(){
-    window.location.reload();
+    restart();
 } 
 //player factory function
 const Player = (name, option) => {
@@ -126,6 +126,7 @@ startBtn.onclick = function createGameboard(){
 
 
 };
+let result = 'Restarted';
 function winCheck(boardArr, moveCounter){
     
     
@@ -133,69 +134,117 @@ function winCheck(boardArr, moveCounter){
         if(boardArr[0]=="X"){
             document.getElementById("winnerText").innerText = `${player1.name} wins`;
             player1.wins++;
+            result = `${player1.name} wins`;
+            restart(result);
         } else {
             document.getElementById("winnerText").innerText = `${player2.name} wins`;
             player2.wins++;
+            result = `${player2.name} wins`;
+            restart(result);
         }
     } else if(boardArr[3] == boardArr[4]&&boardArr[4] == boardArr[5]&&(boardArr[5]=="X"||boardArr[5]=="O")){
         if(boardArr[3]=="X"){
             document.getElementById("winnerText").innerText = `${player1.name} wins`;
             player1.wins++;
+            result = `${player1.name} wins`;
+            restart(result);
         } else {
             document.getElementById("winnerText").innerText = `${player2.name} wins`;
             player2.wins++;
+            result = `${player2.name} wins`;
+            restart(result);
         }
     } else if(boardArr[6] == boardArr[7]&&boardArr[7] == boardArr[8]&&(boardArr[8]=="X"||boardArr[8]=="O")){
         if(boardArr[6]=="X"){
             document.getElementById("winnerText").innerText = `${player1.name} wins`;
             player1.wins++;
+            result = `${player1.name} wins`;
+            restart(result);
         } else {
             document.getElementById("winnerText").innerText = `${player2.name} wins`;
             player2.wins++;
+            result = `${player2.name} wins`;
+            restart(result);
         }
     } else if(boardArr[0] == boardArr[3]&&boardArr[3] == boardArr[6]&&(boardArr[6]=="X"||boardArr[6]=="O")){
         if(boardArr[0]=="X"){
             document.getElementById("winnerText").innerText = `${player1.name} wins`;
             player1.wins++;
+            result = `${player1.name} wins`;
+            restart(result);
         } else {
             document.getElementById("winnerText").innerText = `${player2.name} wins`;
             player2.wins++;
+            result = `${player2.name} wins`;
+            restart(result);
         }
     } else if(boardArr[1] == boardArr[4]&&boardArr[4] == boardArr[7]&&(boardArr[7]=="X"||boardArr[7]=="O")){
         if(boardArr[1]=="X"){
             document.getElementById("winnerText").innerText = `${player1.name} wins`;
             player1.wins++;
+            result = `${player1.name} wins`;
+            restart(result);
         } else {
             document.getElementById("winnerText").innerText = `${player2.name} wins`;
             player2.wins++;
+            result = `${player2.name} wins`;
+            restart(result);
         }
     } else if(boardArr[2] == boardArr[5]&&boardArr[5] == boardArr[7]&&(boardArr[7]=="X"||boardArr[7]=="O")){
         if(boardArr[2]=="X"){
             document.getElementById("winnerText").innerText = `${player1.name} wins`;
             player1.wins++;
+            result = `${player1.name} wins`;
+            restart(result);
         } else {
             document.getElementById("winnerText").innerText = `${player2.name} wins`;
             player2.wins++;
+            result = `${player2.name} wins`;
+            restart(result);
         }
     } else if(boardArr[0] == boardArr[4]&&boardArr[4] == boardArr[8]&&(boardArr[8]=="X"||boardArr[8]=="O")){
         if(boardArr[0]=="X"){
             document.getElementById("winnerText").innerText = `${player1.name} wins`;
             player1.wins++;
+            result = `${player1.name} wins`;
+            restart(result);
         } else {
             document.getElementById("winnerText").innerText = `${player2.name} wins`;
             player2.wins++;
+            result = `${player2.name} wins`;
+            restart(result);
         }
     } else if(boardArr[2] == boardArr[4]&&boardArr[4] == boardArr[6]&&(boardArr[6]=="X"||boardArr[6]=="O")){
         if(boardArr[2]=="X"){
             document.getElementById("winnerText").innerText = `${player1.name} wins`;
             player1.wins++;
+            result = `${player1.name} wins`;
+            restart(result);
         } else {
             document.getElementById("winnerText").innerText = `${player2.name} wins`;
             player2.wins++;
+            result = `${player2.name} wins`;
+            restart(result);
         }
     } else if(moveCounter==9){
         document.getElementById("winnerText").innerText = `It is a tie`;
     }
 
+
+}
+function restart(result){
+    started = false;
+    const logs = document.querySelector(".log");
+    const logResult = document.createElement('div');
+    logResult.setAttribute("class","logs");
+    logResult.innerHTML = result;
+    logs.appendChild(logResult);
+    document.querySelector(".main-container").removeChild(gameBoard);
+
+    for(let i=0;i<9;i++){
+        boardArr[i]=empt;
+    }
+    moveCounter = 0;
+    createGameboard();
 
 }
