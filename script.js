@@ -31,12 +31,12 @@ restartBtn.onclick = function refreshPage(){
     restart("Restarted");
 } 
 //player factory function
-const Player = (name, option) => {
+const Player = (name="empty", option) => {
     let wins = 0;
     return {name, option, wins}
 }
-const player1 = Player("PLayer 1", option);
-const player2 = Player("Player 2", p2Option);
+const player1 = Player(option);
+const player2 = Player("AI",p2Option);
 
 
 
@@ -54,9 +54,16 @@ p2.onblur = function(){
     player2.name = p2.value;
 }
 //sets player names as the names from the start panel
-saveBtn.onclick = function(){
-    document.getElementById("player1Name").innerHTML = p1.value;
-    document.getElementById("player2Name").innerHTML = p2.value;
+saveBtn.onclick = function panel(){
+    if(/[A-Za-z0-9]/.test(p1.value)==false){
+        console.log("IF is working")
+        const err = document.getElementById("player1");
+        err.style.cssText = "border: 2px red solid";
+
+        
+    } else {
+    document.getElementById("player1Name").innerHTML = player1.name;
+    document.getElementById("player2Name").innerHTML = player2.name;
     document.getElementById("player1option").innerHTML = option;
     document.getElementById("player2option").innerHTML = p2Option;
     document.getElementById("winnerText").innerHTML = "Please press start"
@@ -65,6 +72,7 @@ saveBtn.onclick = function(){
 
 
     document.querySelector(".startPanel").style.cssText = "display: none";
+    }
     
 }
 
