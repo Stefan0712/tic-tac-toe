@@ -134,7 +134,7 @@ startBtn.onclick = function createGameboard(){
                 //add the option to an array
                 boardArr[i]=option;
                 //change the option to X or O depending of what was before that
-                cell.removeEventListener("onclick",handleClick());
+                cell.removeEventListener("onclick",handleClick);
                 moveCounter++;
                 winCheck(boardArr, moveCounter);
                 ai(boardArr,option);
@@ -319,7 +319,7 @@ function ai(boardArr,option){
     if(boardArr[pos]==empt){
         boardArr[pos]=aiOption;
         document.getElementById(`gameCell${pos}`).innerHTML = aiOption;
-        document.getElementById(`gameCell${pos}`).removeEventListener("onclick",handleClick());
+        document.getElementById(`gameCell${pos}`).removeEventListener("onclick",handleClick);
     }else {
         ai(boardArr,option);
     }
