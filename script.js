@@ -128,13 +128,13 @@ startBtn.onclick = function createGameboard(){
             //set id of current cell to "gameCell+current number"
             cell.setAttribute("id",`gameCell${i}`);
             cell.classList.add("cells");
-            cell.addEventListener('click', function(){
+            cell.addEventListener('click', handleClick(){
                 //insert X or O into the cell
                 cell.innerText = option;
                 //add the option to an array
                 boardArr[i]=option;
                 //change the option to X or O depending of what was before that
-                cell.removeEventListener();
+                cell.removeEventListener("onclick".handleClick());
                 moveCounter++;
                 winCheck(boardArr, moveCounter);
                 ai(boardArr,option);
@@ -319,7 +319,7 @@ function ai(boardArr,option){
     if(boardArr[pos]==empt){
         boardArr[pos]=aiOption;
         document.getElementById(`gameCell${pos}`).innerHTML = aiOption;
-        document.getElementById(`gameCell${pos}`).removeEventListener();
+        document.getElementById(`gameCell${pos}`).removeEventListener("onclick".handleClick());
     }else {
         ai(boardArr,option);
     }
