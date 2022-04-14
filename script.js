@@ -319,6 +319,7 @@ function ai(boardArr,option){
     if(boardArr[pos]==empt){
         boardArr[pos]=aiOption;
         document.getElementById(`gameCell${pos}`).innerHTML = aiOption;
+        document.getElementById(`gameCell${pos}`).removeEventListener();
     }else {
         ai(boardArr,option);
     }
