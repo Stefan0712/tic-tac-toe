@@ -1,7 +1,10 @@
 body{
     margin: 0px;
-    background-color: EDF6E5;
+    background-color: #EDF6E5;
     height: 100%;
+    display: grid;
+    grid-template-rows: 1fr 4fr;
+    overflow: hidden;
 }
 html{
     height: 100%;
@@ -15,7 +18,8 @@ html{
     justify-content: center;
     align-items: center;
     padding: 20px;
-    background-color: #B5EAEA;
+    background-color: #112B3C;
+    color: white;
 }
 .top-container button{
     border-radius: 10px;
@@ -23,7 +27,7 @@ html{
     width: 100px;
     margin: 20px;
     border: none;
-    background-color: #FFBCBC;
+    background-color: #F66B0E;
 }
 .buttons{
     display: flex;
@@ -33,21 +37,22 @@ html{
     grid-row: 1/3;
 }
 .display{
-    background-color: #EDF6E5;
     height: 100px;
     width: 750px;
     display: grid;
     grid-template-columns: 1fr 1fr;
     padding: 10px;
     grid-column: 2/3;
-    border-radius: 15px;
+    align-items: center;
+    justify-items: center;
 }
 .main-container{
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 100px;
-    background-color: #EDF6E5;
+    padding: 50px;
+    background-color: #EFEFEF;
+    height: 100%;
 }
 #gameBoard{
     border: 1px black solid;
@@ -73,6 +78,7 @@ html{
     grid-column: 3/3;
 }
 .startPanel{
+    color: white;
     border-radius: 15px;
     height: 500px;
     width: 400px;
@@ -80,8 +86,7 @@ html{
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: antiquewhite;
-    box-shadow: 4px 4px 4px lightgray;
+    background-color: #205375;
 }
 .startPanel input{
     height: 50px;
@@ -98,7 +103,7 @@ html{
     width: 200px;
     border-radius: 15px;
     border: none;
-    background-color: #FFBCBC;
+    background-color: #F66B0E;
     margin-top: 100px;
 
 }
@@ -108,6 +113,9 @@ html{
     grid-column: 2/3;
     font-size: 50px;
     padding-top: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .player1Display,
 .player2Display{
@@ -121,10 +129,9 @@ html{
 }
 .logs{
     height: 20px;
-    background-color: white;
-    box-shadow: 3px 3px 3px lightgray;
+    background-color: #205375;
     margin-top: 3px;
-    padding: 2px;
+    padding: 5px;
     width: 388px;
 }
 .options{
@@ -140,4 +147,8 @@ html{
     width: 50px;
     margin-top: 50px;
     margin: 30px;
+}
+#player1Name,
+#player2Name{
+    margin-right: 100px;
 }

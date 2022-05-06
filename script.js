@@ -128,7 +128,8 @@ startBtn.onclick = function createGameboard(){
             //set id of current cell to "gameCell+current number"
             cell.setAttribute("id",`gameCell${i}`);
             cell.classList.add("cells");
-            cell.addEventListener('click', handleClick(){
+            cell.addEventListener('click',function handleClick(){
+                if(cell.innerText!="X"&&cell.innerText!="O"){
                 //insert X or O into the cell
                 cell.innerText = option;
                 //add the option to an array
@@ -138,13 +139,14 @@ startBtn.onclick = function createGameboard(){
                 moveCounter++;
                 winCheck(boardArr, moveCounter);
                 ai(boardArr,option);
-                
-            })
-            
+                }else {
+                    console.log("Ilegal move")
+                }
+               });
             
             game.appendChild(cell);
         }
-    } else{
+    }else {
         //shows an error if you try to create a gameboard after one was already created
         const warning = document.querySelector(".log");
         const error =document.createElement("div");
@@ -159,26 +161,17 @@ startBtn.onclick = function createGameboard(){
 
 
 };
-/* I' trying a new way to check for winning combination
-let winComb =   [
-                [0,1,2],
-                [3,4,5],
-                [6,7,8],
-                [0,3,6],
-                [1,4,7],
-                [2,5,8],
-                [0,4,8],
-                [4,3,6]
-                ];
-let garr = [
-    [boardArr[0],boardArr[1],boardArr[2]],
-    [boardArr[3],boardArr[4],boardArr[5]],
-    [boardArr[6],boardArr[7],boardArr[8]]
-];
-for(let i=0;i<7;i++){
-    
-}
-*/
+function handleClick(){
+    //insert X or O into the cell
+    cell.innerText = option;
+    //add the option to an array
+    boardArr[i]=option;
+    //change the option to X or O depending of what was before that
+    cell.removeEventListener("onclick",handleClick);
+    moveCounter++;
+    winCheck(boardArr, moveCounter);
+    ai(boardArr,option);
+   }
 
 let result = 'Restarted';
 function winCheck(boardArr, moveCounter){
@@ -287,10 +280,7 @@ function winCheck(boardArr, moveCounter){
 
 }
 function restart(result){
-    if(!document.getElementById("gameBoard")){
-        document.getElementById("winnerText").innerHTML = "Please press START"
-        restart();
-    }
+    
     started = false;
   
     const logs = document.querySelector(".log");
@@ -319,7 +309,7 @@ function ai(boardArr,option){
     if(boardArr[pos]==empt){
         boardArr[pos]=aiOption;
         document.getElementById(`gameCell${pos}`).innerHTML = aiOption;
-        document.getElementById(`gameCell${pos}`).removeEventListener("onclick",handleClick);
+        document.getElementById(`gameCell${pos}`).removeEventListener("click",handleClick);
     }else {
         ai(boardArr,option);
     }
