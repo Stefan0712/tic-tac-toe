@@ -1,320 +1,127 @@
-var started = true;
+//references to DOM components
+const startMenu = document.querySelector('.start-menu')
+const game = document.querySelector('.game')
+const endGame = document.querySelector('.end-game')
+const messages = document.getElementById('messages')
+const gameboard = document.querySelector('.gameboard')
+ 
 
-const startBtn = document.getElementById("startBtn");
-const restartBtn = document.getElementById("restartBtn");
-const saveBtn = document.getElementById("save");
-const xBtn = document.getElementById("xBtn");
-const oBtn = document.getElementById("oBtn");
-let option = "";
-let p2Option;
+//the array where player/computer choices will be stored
+let boardArr = [
+    0,0,0,
+    0,0,0,
+    0,0,0
+]
+//score counter
+let computerScore, playerScore = 0;
 
 
-xBtn.onclick = function(){
-    option = xBtn.value;
-    p2Option="O";
-
-    xBtn.style.cssText="background-color: #F38BA0";
-    oBtn.style.cssText="background-color: #FFBCBC";
+// hide/show the correct divs
+const startGame = () =>{
+    startMenu.classList.toggle('hide')
+    game.classList.toggle('hide')
+    createGameboard()
 }
-oBtn.onclick = function(){
-
-    option = oBtn.value;
-    p2Option="X";
-
-    oBtn.style.cssText="background-color: #F38BA0";
-    xBtn.style.cssText="background-color: #FFBCBC";
-} 
-
-
-//refresh the page to restart the game. Might chanage later to something better
-restartBtn.onclick = function refreshPage(){
-    restart("Restarted");
-} 
-//player factory function
-const Player = (name="empty", option) => {
-    let wins = 0;
-    return {name, option, wins}
+// start a new game
+const restartGame = () =>{
+    console.log("restarted")
 }
-const player1 = Player(option);
-const player2 = Player("AI",p2Option);
-
-
-
-
-
-
-const p1 = document.getElementById("player1");
-const p2 = document.getElementById("player2");
-//gets player names
-p1.onblur = function(){
-    player1.name = p1.value;
-}
-
-p2.onblur = function(){
-    player2.name = p2.value;
-}
-//sets player names as the names from the start panel
-saveBtn.onclick = function panel(){
-    if(/[A-Za-z0-9]/.test(p1.value)==false){
-        console.log("IF is working")
-        const err = document.getElementById("player1");
-        err.style.cssText = "border: 2px red solid";
-
-        
-    } else {
-    document.getElementById("player1Name").innerHTML = player1.name;
-    document.getElementById("player2Name").innerHTML = player2.name;
-    document.getElementById("player1option").innerHTML = option;
-    document.getElementById("player2option").innerHTML = p2Option;
-    document.getElementById("winnerText").innerHTML = "Please press start"
-
-    started = false;
-
-
-    document.querySelector(".startPanel").style.cssText = "display: none";
-    }
-    
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//gameboard arr
-const empt = "Empty cell"
-const boardArr = [empt,empt,empt,empt,empt,empt,empt,empt,empt];
-let moveCounter = 0;
-
-
-
-
-
-
-
-startBtn.onclick = function createGameboard(){
-    document.getElementById("winnerText").innerHTML = "";
-    //the if check if there is already a gameboard created
-    if(started==false){
-        started = true;
-        const container = document.querySelector(".main-container");
-        const game = document.createElement('div');
-        game.setAttribute("id","gameBoard");
-        container.appendChild(game);
-        for(let i=0;i<9;i++){
-            const cell = document.createElement('div');
-            //set id of current cell to "gameCell+current number"
-            cell.setAttribute("id",`gameCell${i}`);
-            cell.classList.add("cells");
-            cell.addEventListener('click',function handleClick(){
-                if(cell.innerText!="X"&&cell.innerText!="O"){
-                //insert X or O into the cell
-                cell.innerText = option;
-                //add the option to an array
-                boardArr[i]=option;
-                //change the option to X or O depending of what was before that
-                cell.removeEventListener("onclick",handleClick);
-                moveCounter++;
-                winCheck(boardArr, moveCounter);
-                ai(boardArr,option);
-                }else {
-                    console.log("Ilegal move")
-                }
-               });
-            
-            game.appendChild(cell);
-        }
-    }else {
-        //shows an error if you try to create a gameboard after one was already created
-        const warning = document.querySelector(".log");
-        const error =document.createElement("div");
-        error.setAttribute("id","error");
-        error.innerText="The game can't start";
-        warning.appendChild(error);
-
-    }
-    
-
-    
-
-
-};
-function handleClick(){
-    //insert X or O into the cell
-    cell.innerText = option;
-    //add the option to an array
-    boardArr[i]=option;
-    //change the option to X or O depending of what was before that
-    cell.removeEventListener("onclick",handleClick);
-    moveCounter++;
-    winCheck(boardArr, moveCounter);
-    ai(boardArr,option);
-   }
-
-let result = 'Restarted';
-function winCheck(boardArr, moveCounter){
-    
-    
-    if(boardArr[0] == boardArr[1]&&boardArr[1] == boardArr[2]&&(boardArr[1]=="X"||boardArr[1]=="O")){
-        if(boardArr[0]==option){
-            document.getElementById("winnerText").innerText = `${player1.name} wins`;
-            player1.wins++;
-            result = `${player1.name} wins`;
-            restart(result);
-        } else {
-            document.getElementById("winnerText").innerText = `${player2.name} wins`;
-            player2.wins++;
-            result = `${player2.name} wins`;
-            restart(result);
-        }
-    } else if(boardArr[3] == boardArr[4]&&boardArr[4] == boardArr[5]&&(boardArr[5]=="X"||boardArr[5]=="O")){
-        if(boardArr[3]==option){
-            document.getElementById("winnerText").innerText = `${player1.name} wins`;
-            player1.wins++;
-            result = `${player1.name} wins`;
-            restart(result);
-        } else {
-            document.getElementById("winnerText").innerText = `${player2.name} wins`;
-            player2.wins++;
-            result = `${player2.name} wins`;
-            restart(result);
-        }
-    } else if(boardArr[6] == boardArr[7]&&boardArr[7] == boardArr[8]&&(boardArr[8]=="X"||boardArr[8]=="O")){
-        if(boardArr[6]==option){
-            document.getElementById("winnerText").innerText = `${player1.name} wins`;
-            player1.wins++;
-            result = `${player1.name} wins`;
-            restart(result);
-        } else {
-            document.getElementById("winnerText").innerText = `${player2.name} wins`;
-            player2.wins++;
-            result = `${player2.name} wins`;
-            restart(result);
-        }
-    } else if(boardArr[0] == boardArr[3]&&boardArr[3] == boardArr[6]&&(boardArr[6]=="X"||boardArr[6]=="O")){
-        if(boardArr[0]==option){
-            document.getElementById("winnerText").innerText = `${player1.name} wins`;
-            player1.wins++;
-            result = `${player1.name} wins`;
-            restart(result);
-        } else {
-            document.getElementById("winnerText").innerText = `${player2.name} wins`;
-            player2.wins++;
-            result = `${player2.name} wins`;
-            restart(result);
-        }
-    } else if(boardArr[1] == boardArr[4]&&boardArr[4] == boardArr[7]&&(boardArr[7]=="X"||boardArr[7]=="O")){
-        if(boardArr[1]==option){
-            document.getElementById("winnerText").innerText = `${player1.name} wins`;
-            player1.wins++;
-            result = `${player1.name} wins`;
-            restart(result);
-        } else {
-            document.getElementById("winnerText").innerText = `${player2.name} wins`;
-            player2.wins++;
-            result = `${player2.name} wins`;
-            restart(result);
-        }
-    } else if(boardArr[2] == boardArr[5]&&boardArr[5] == boardArr[7]&&(boardArr[7]=="X"||boardArr[7]=="O")){
-        if(boardArr[2]==option){
-            document.getElementById("winnerText").innerText = `${player1.name} wins`;
-            player1.wins++;
-            result = `${player1.name} wins`;
-            restart(result);
-        } else {
-            document.getElementById("winnerText").innerText = `${player2.name} wins`;
-            player2.wins++;
-            result = `${player2.name} wins`;
-            restart(result);
-        }
-    } else if(boardArr[0] == boardArr[4]&&boardArr[4] == boardArr[8]&&(boardArr[8]=="X"||boardArr[8]=="O")){
-        if(boardArr[0]==option){
-            document.getElementById("winnerText").innerText = `${player1.name} wins`;
-            player1.wins++;
-            result = `${player1.name} wins`;
-            restart(result);
-        } else {
-            document.getElementById("winnerText").innerText = `${player2.name} wins`;
-            player2.wins++;
-            result = `${player2.name} wins`;
-            restart(result);
-        }
-    } else if(boardArr[2] == boardArr[4]&&boardArr[4] == boardArr[6]&&(boardArr[6]=="X"||boardArr[6]=="O")){
-        if(boardArr[2]==option){
-            document.getElementById("winnerText").innerText = `${player1.name} wins`;
-            player1.wins++;
-            result = `${player1.name} wins`;
-            restart(result);
-        } else {
-            document.getElementById("winnerText").innerText = `${player2.name} wins`;
-            player2.wins++;
-            result = `${player2.name} wins`;
-            restart(result);
-        }
-    } else if(moveCounter==9){
-        document.getElementById("winnerText").innerText = `It is a tie`;
-    }
-
-
-}
-function restart(result){
-    
-    started = false;
-  
-    const logs = document.querySelector(".log");
-    const logResult = document.createElement('div');
-    logResult.setAttribute("class","logs");
-    logResult.innerHTML = result;
-    logs.appendChild(logResult);
-    document.querySelector(".main-container").removeChild(gameBoard);
-
+// creates the gameboard
+const createGameboard = () =>{
     for(let i=0;i<9;i++){
-        boardArr[i]=empt;
-    }
-    moveCounter = 0;
-    createGameboard();
+        //creates div
+        let square = document.createElement('div')
+        //gives it an id
+        square.setAttribute('id',i)
+        //gives it an onClick event handler
+        square.setAttribute('onClick',`select(${i})`)
+        //append it to the gameboard
+        gameboard.appendChild(square)
 
+    }
+}
+// handle the logic for player selection
+const select = (i) =>{
+    //do stuff only if the selected square is empty
+    if(boardArr[i]===0){
+        //changes the value in boardArr
+        boardArr[i] = 'p';
+        //changes the gameboard from the page by adding "X"
+        document.getElementById(i).innerHTML = "X"
+        //invokes the checkGame function to check if the game is finished or not
+        checkGame('p')
+        //invokes the computer function
+        computer()
+    }else{
+        console.log("You can't place here!")
+    }
+}
+const computer = () =>{
+    // finish the game if there are not any empty spaces left
+    if(!checkFreeSpaces()){
+        console.log(checkFreeSpaces())
+        console.log("No free spaces left")
+        finishGame()
+        return;
+    }
+    //pick a random number from - to 8
+    let option = Math.round(Math.random()*8)
+    //if the choosen number correspond to an already filled space, it will restart the function and pick another number 
+    if(boardArr[option]==='p' || boardArr[option]==="c"){
+        computer()
+    }else{
+        //if the space is empty, it assing the "c" letter to the array
+        boardArr[option] = 'c'
+        document.getElementById(option).innerHTML = "o"
+        checkGame('c')
+    }
 }
 
-function ai(boardArr,option){
-    let aiOption ='';
-    if(option=="X"){
-        aiOption = "O";
-    } else {
-        aiOption = "X";
+//a function that checks if there are any free spaces (free space is represented by a "0")
+const checkFreeSpaces = () =>{
+    for(i=0;i<9;i++){
+        if(boardArr[i] === 0 ){
+            return true;
+        }
+
     }
-    let pos = Math.floor(Math.random(1)*8);
-    if(boardArr[pos]==empt){
-        boardArr[pos]=aiOption;
-        document.getElementById(`gameCell${pos}`).innerHTML = aiOption;
-        document.getElementById(`gameCell${pos}`).removeEventListener("click",handleClick);
-    }else {
-        ai(boardArr,option);
+}
+//function that handles the end game
+const finishGame = (choice) =>{
+    if(choice === 'p'){
+        //prints the winner and updates the score
+        console.log("Player won the game")
+        playerScore++;
+        document.getElementById('player-score').innerHTML = playerScore;
+    }else if(choice === 'c'){
+        console.log("Computer won the game")
+        computerScore++;
+        document.getElementById('computer-score').innerHTML = computerScore;
     }
-    winCheck(boardArr, moveCounter);
-    console.log("pos "+pos);
-    console.log("option "+option);
-    console.log("aiOption "+aiOption);
+    //hides the game divs and shows the end game screen.
+    //TO-DO make game screen always visible and end/start screen to appear and then disapear on top of the game screen, by having a nice animation
+    game.classList.add('hide')
+    endGame.classList.toggle('hide')
+}
+
+//checks the winning combinations against the current game array
+const checkGame = (choice) =>{
+
+    if(boardArr[0] === choice && boardArr[1] === choice && boardArr[2] === choice){
+        finishGame(choice)
+    }else if(boardArr[3] === choice && boardArr[4] === choice && boardArr[5] === choice){
+        finishGame(choice)
+    }else if(boardArr[6] === choice && boardArr[7] === choice && boardArr[8] === choice){
+        finishGame(choice)
+    }else if(boardArr[0] === choice && boardArr[3] === choice && boardArr[6] === choice){
+        finishGame(choice)
+    }else if(boardArr[1] === choice && boardArr[4] === choice && boardArr[7] === choice){
+        finishGame(choice)
+    }else if(boardArr[2] === choice && boardArr[3] === choice && boardArr[8] === choice){
+        finishGame(choice)
+    }else if(boardArr[0] === choice && boardArr[4] === choice && boardArr[8] === choice){
+        finishGame(choice)
+    }else if(boardArr[2] === choice && boardArr[4] === choice && boardArr[6] === choice){
+        finishGame(choice)
+    }
 }
