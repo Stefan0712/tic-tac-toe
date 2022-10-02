@@ -2,34 +2,34 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
     <title>Tic-Tac-Toe</title>
 </head>
 <body>
-   <div class="start-menu hide">
+   <div class="start-menu">
     <h1>Tic-tac-toe</h1>
-    <h3>Please enter your name</h3>
-    <input type="text" id="player-name" required>
-    <button id="start-btn" onClick="startGame()">Start game</button>
+    <div class="input-group w-25">
+        <div class="input-group-text">Username</div>
+        <input class="form-control" type="text" id="player-name" required>
+    </div>
+    <button class="btn btn-primary" id="start-btn" onClick="startGame()">Start game</button>
    </div>
    <div class="game">
     <div class="top-panel">
-        <button onClick="createGameboard()">Test</button>
+        <button class="btn btn-warning" onClick="restartGame()">Restart</button>
         <div id="player-name"></div>
         <div class="game-info">
-            <div>Round <div id="round"></div></div>
-            <div><div id="player-score"></div> - <div id="computer-score"></div></div>
+            <div>Round # <div id="round"> 1</div></div>
+            <div><div id="player-score">0</div>  -  <div id="computer-score">0</div></div>
         </div>
     </div>
     <div class="bottom-panel">
-        <div id="messages"></div>
+        <div id="messages" class=""></div>
         <div class="gameboard"></div>
     </div>
-   </div>
-   <div class="end-game hide">
-    <div id="end-message"></div>
-    <button id="restart-btn" onClick="restartGame()">Restart game</button>
    </div>
 
 </body>

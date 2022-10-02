@@ -1,11 +1,9 @@
 *{
     padding: 0px;
     margin: 0px;
+    background-color: #219ebc;
 }
 
-.hide{
-    display: none;
-}
 .game{
     height: 100vh;
     display: flex;
@@ -14,14 +12,32 @@
 }
 .top-panel{
     height: 100px;
-    border: 1px solid red;
+    display: flex;
+    align-items: center;
+    padding-left: 25px;
+    z-index: 2;
+    background-color: #219ebc;
+}
+.game-info{
+    margin-left: calc(25% - 50px);
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+}
+
+.game-info div{
+    display: flex;
+    font-size: 30px;
 }
 .bottom-panel{
-    border: 1px solid green;
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
+    z-index: 1;
 }
 .gameboard{
     height: 270px;
@@ -31,6 +47,54 @@
 }
 .gameboard div{
     border: 1px solid black;
-    height: 88px;
+    height: 90px;
     width: 88px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 75px;
+    background-color: white;
 }
+.x{
+    color: #0077b6;
+}
+.o{
+    color: #dc2f02;
+}
+
+
+.start-menu{
+    position: absolute;
+    left:0px;
+    top:0px;
+    height: 100vh;
+    width: 100vw;
+    background-color: #219ebc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 15px;
+    z-index: 3;
+    color: white;
+}
+.hide{
+    transform: translateX(-100%);
+    transition: all 0.3s;
+}
+ #messages{
+    position: absolute;
+    top:0px;
+    width: 100%;
+    background-color: rgb(130, 199, 130);
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    transform: translateY(-100%);
+ }
+ .showMsg{
+    transition: all 0.3s;
+    transform: translateY(0%) !important;
+ }

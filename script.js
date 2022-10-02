@@ -3,7 +3,8 @@ const startMenu = document.querySelector('.start-menu')
 const game = document.querySelector('.game')
 const endGame = document.querySelector('.end-game')
 const messages = document.getElementById('messages')
-const gameboard = document.querySelector('.gameboard')
+const nameInput = document.getElementById('player-name')
+const bottomPanel = document.querySelector('.bottom-panel')
  
 
 //the array where player/computer choices will be stored
@@ -13,21 +14,24 @@ let boardArr = [
     0,0,0
 ]
 //score counter
-let computerScore, playerScore = 0;
-
+let computerScore = 0;
+let playerScore = 0;
+let isGameOver = false;
+let round = 0;
+let playerName = "Player"
 
 // hide/show the correct divs
 const startGame = () =>{
     startMenu.classList.toggle('hide')
-    game.classList.toggle('hide')
+    if(nameInput.value){
+        playerName = nameInput.value
+    }
     createGameboard()
 }
-// start a new game
-const restartGame = () =>{
-    console.log("restarted")
-}
+
 // creates the gameboard
 const createGameboard = () =>{
+    const gameboard = document.querySelector('.gameboard')
     for(let i=0;i<9;i++){
         //creates div
         let square = document.createElement('div')
@@ -43,24 +47,23 @@ const createGameboard = () =>{
 // handle the logic for player selection
 const select = (i) =>{
     //do stuff only if the selected square is empty
-    if(boardArr[i]===0){
+    if(boardArr[i]===0 && isGameOver === false){
         //changes the value in boardArr
         boardArr[i] = 'p';
         //changes the gameboard from the page by adding "X"
-        document.getElementById(i).innerHTML = "X"
+        document.getElementById(i).innerHTML = "x"
+        document.getElementById(i).classList.add('x')
         //invokes the checkGame function to check if the game is finished or not
         checkGame('p')
         //invokes the computer function
         computer()
     }else{
-        console.log("You can't place here!")
+        
     }
 }
 const computer = () =>{
     // finish the game if there are not any empty spaces left
     if(!checkFreeSpaces()){
-        console.log(checkFreeSpaces())
-        console.log("No free spaces left")
         finishGame()
         return;
     }
@@ -73,6 +76,7 @@ const computer = () =>{
         //if the space is empty, it assing the "c" letter to the array
         boardArr[option] = 'c'
         document.getElementById(option).innerHTML = "o"
+        document.getElementById(option).classList.add('o')
         checkGame('c')
     }
 }
@@ -90,19 +94,40 @@ const checkFreeSpaces = () =>{
 const finishGame = (choice) =>{
     if(choice === 'p'){
         //prints the winner and updates the score
-        console.log("Player won the game")
+        messages.innerHTML = `${playerName} won the game`
+        messages.classList.toggle('showMsg')
         playerScore++;
         document.getElementById('player-score').innerHTML = playerScore;
     }else if(choice === 'c'){
-        console.log("Computer won the game")
+        messages.innerHTML = "Computer won the game"
+        messages.classList.toggle('showMsg')
         computerScore++;
         document.getElementById('computer-score').innerHTML = computerScore;
     }
     //hides the game divs and shows the end game screen.
     //TO-DO make game screen always visible and end/start screen to appear and then disapear on top of the game screen, by having a nice animation
-    game.classList.add('hide')
-    endGame.classList.toggle('hide')
+    isGameOver = true;
+
 }
+
+// start a new game
+const restartGame = () =>{
+    const gameboard = document.querySelector('.gameboard')
+    messages.classList.toggle('showMsg')
+    messages.innerHTML = ""
+    round++;
+    gameboard.remove();
+    boardArr = [0,0,0,0,0,0,0,0,0];
+    isGameOver = false;
+    let newGameboard = document.createElement('div')
+    newGameboard.classList.add('gameboard')
+    bottomPanel.appendChild(newGameboard)
+    createGameboard()
+
+}
+
+
+
 
 //checks the winning combinations against the current game array
 const checkGame = (choice) =>{
