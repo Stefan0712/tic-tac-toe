@@ -64,7 +64,7 @@ const select = (i) =>{
 const computer = () =>{
     // finish the game if there are not any empty spaces left
     if(!checkFreeSpaces()){
-        finishGame()
+        finishGame('no-spaces')
         return;
     }
     //pick a random number from - to 8
@@ -96,6 +96,7 @@ const finishGame = (choice) =>{
         //prints the winner and updates the score
         messages.innerHTML = `${playerName} won the game`
         messages.classList.toggle('showMsg')
+        setTimeout(()=>{messages.classList.toggle('showMsg')},1000)
         playerScore++;
         document.getElementById('player-score').innerHTML = playerScore;
     }else if(choice === 'c'){
@@ -103,6 +104,10 @@ const finishGame = (choice) =>{
         messages.classList.toggle('showMsg')
         computerScore++;
         document.getElementById('computer-score').innerHTML = computerScore;
+    }else if(choice === 'no-spaces'){
+        messages.innerHTML = "It is a tie"
+        messages.classList.toggle('showMsg')
+        setTimeout(()=>{messages.classList.toggle('showMsg')},1000)
     }
     //hides the game divs and shows the end game screen.
     //TO-DO make game screen always visible and end/start screen to appear and then disapear on top of the game screen, by having a nice animation
@@ -114,7 +119,8 @@ const finishGame = (choice) =>{
 const restartGame = () =>{
     const gameboard = document.querySelector('.gameboard')
     messages.classList.toggle('showMsg')
-    messages.innerHTML = ""
+    messages.innerHTML = "The game was restarted!"
+    setTimeout(()=>{messages.classList.toggle('showMsg')},1000)
     round++;
     gameboard.remove();
     boardArr = [0,0,0,0,0,0,0,0,0];
